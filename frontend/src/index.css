@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --primary: 230 20% 40%;
+  --background: 220 20% 95%;
+  --glass-bg: rgba(255, 255, 255, 0.4);
+  --glass-border: rgba(255, 255, 255, 0.6);
+  --text-main: #334155;
+  --text-muted: #64748b;
+  --radius: 1.5rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Outfit', sans-serif;
+}
+
+body {
+  background-color: #dee4f0;
+  color: var(--text-main);
+  overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Spheres background decoration */
+body::before, body::after {
+  content: "";
+  position: fixed;
+  border-radius: 50%;
+  z-index: -1;
+  filter: blur(40px);
+}
+
+body::before {
+  width: 400px;
+  height: 400px;
+  background: white;
+  top: -100px;
+  left: 20%;
+  opacity: 0.8;
+}
+
+body::after {
+  width: 300px;
+  height: 300px;
+  background: white;
+  bottom: -50px;
+  right: 10%;
+  opacity: 0.6;
+}
+
+.sphere-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.sphere {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.7;
+}
+
+/* Frosted Glass Effect */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: var(--radius);
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+}
+
+/* Buttons like in the image */
+.btn-primary {
+  background: white;
+  color: var(--text-main);
+  border: none;
+  padding: 1rem 3rem;
+  border-radius: 3rem;
+  cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.btn-primary:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Inputs like in the image */
+.input-field {
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: var(--text-main);
+  padding: 1rem 1.5rem;
+  border-radius: 1rem;
+  width: 100%;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.input-field:focus {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(255, 255, 255, 1);
+}
+
+.input-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+  display: block;
+  font-weight: 500;
+}
+
+/* Layout Overrides */
+.sidebar {
+  background: rgba(255, 255, 255, 0.3);
+  border-right: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.navbar {
+  background: rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.gradient-text {
+  color: var(--text-main);
+  font-weight: 700;
+}
+
+/* Specific overrides for Sidebar items */
+.nav-link-active {
+  background: rgba(255, 255, 255, 0.5) !important;
+  color: var(--text-main) !important;
+}
+
+.nav-link-inactive {
+  color: var(--text-muted) !important;
+}
+
+.nav-link-inactive:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: var(--text-main) !important;
+}
