@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../utils/api';
 import { useAuth } from '../context/AuthContext';
-import { CheckCircle2, Clock, ListTodo, AlertCircle, History, TrendingUp } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { CheckCircle2, Clock, ListTodo, AlertCircle, History, TrendingUp, ArrowUpRight, Zap } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { formatDistanceToNow } from 'date-fns';
 
 const StatCard = ({ title, value, icon, color, delay }) => (
@@ -30,9 +30,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const { data } = await axios.get('http://localhost:5000/api/dashboard/stats', {
-          headers: { Authorization: `Bearer ${user.token}` }
-        });
+        const { data } = await api.get('/dashboard/stats');
         setData(data);
       } catch (err) {
         console.error('Error fetching stats:', err);
@@ -41,7 +39,7 @@ const Dashboard = () => {
       }
     };
     fetchStats();
-  }, [user.token]);
+  }, []);
 
   if (loading) return (
     <div className="flex items-center justify-center h-[calc(100vh-120px)]">

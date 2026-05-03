@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../utils/api';
 import { useAuth } from '../context/AuthContext';
 import { Plus, Folder, ArrowRight, Loader2, MoreHorizontal } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -14,9 +14,7 @@ const Projects = () => {
 
   const fetchProjects = async () => {
     try {
-      const { data } = await axios.get('http://localhost:5000/api/projects', {
-        headers: { Authorization: `Bearer ${user.token}` }
-      });
+      const { data } = await api.get('/projects');
       setProjects(data);
     } catch (err) {
       console.error(err);
@@ -31,9 +29,7 @@ const Projects = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.post('http://localhost:5000/api/projects', { name, description }, {
-        headers: { Authorization: `Bearer ${user.token}` }
-      });
+      await api.post('/projects', { name, description });
       setShowModal(false);
       setName('');
       setDescription('');

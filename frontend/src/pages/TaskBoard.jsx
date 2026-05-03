@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../utils/api';
 import { useAuth } from '../context/AuthContext';
 import { Plus, CheckCircle, Clock, Loader2, Calendar } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -21,15 +21,14 @@ const TaskBoard = () => {
 
   const fetchData = async () => {
     try {
-      const headers = { Authorization: `Bearer ${user.token}` };
       const [tasksRes, projectsRes] = await Promise.all([
-        axios.get('http://localhost:5000/api/tasks', { headers }),
-        axios.get('http://localhost:5000/api/projects', { headers })
+        api.get('/tasks'),
+        api.get('/projects')
       ]);
       setTasks(tasksRes.data);
       setProjects(projectsRes.data);
       if (user.role === 'Admin') {
-        const usersRes = await axios.get('http://localhost:5000/api/dashboard/users', { headers });
+        const usersRes = await api.get('/dashboard/users');
         setUsers(usersRes.data);
       }
     } catch (err) {
@@ -43,9 +42,8 @@ const TaskBoard = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.post('http://localhost:5000/api/tasks', 
-        { title, description, project: projectId, assignedTo, deadline },
-        { headers: { Authorization: `Bearer ${user.token}` } }
+      await api.post('/tasks', 
+        { title, description, project: projectId, assignedTo, deadline }
       );
       setShowModal(false);
       resetForm();
@@ -57,9 +55,7 @@ const TaskBoard = () => {
 
   const updateStatus = async (taskId, status) => {
     try {
-      await axios.put(`http://localhost:5000/api/tasks/${taskId}/status`, { status }, {
-        headers: { Authorization: `Bearer ${user.token}` }
-      });
+      await api.put(`/tasks/${taskId}/status`, { status });
       fetchData();
     } catch (err) { console.error(err); }
   };
